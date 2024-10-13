@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] YouTubeApiProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/YouTubeApiProject.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css" asp-append-version="true" />
+
+    <!-- Custom styles to resemble YouTube -->
+    <style>
+        .navbar {
+            background-color: #212121; /* Darker gray for the navbar */
+            display: flex; /* Enable Flexbox */
+            justify-content: space-between; /* Space elements evenly */
+            align-items: center; /* Center items vertically */
+            position: relative; /* Relative positioning */
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-brand img {
+                height: 40px;
+            }
+
+            .navbar-brand span {
+                color: white;
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-left: 8px;
+            }
+
+        .trademark {
+            font-size: 0.7rem;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        .navbar-toggler {
+            background-color: #ff0000; /* Red color for the toggle button */
+        }
+
+        .navbar-collapse {
+            display: flex; /* Keep items inline */
+            align-items: center; /* Center items vertically */
+        }
+
+        /* Center search bar */
+        .search-bar-container {
+            display: flex;
+            justify-content: center; /* Center the search bar container */
+            flex: 1; /* Allow it to grow and fill available space */
+            max-width: 800px; /* Optional: limit maximum width of the search bar */
+            margin: 20 auto; /* Center container */
+            margin-left: 650px; /* Adjust this value to push it right */
+        }
+
+        .search-bar {
+            display: flex;
+            max-width: 1000px; /* Set a max width for the search bar */
+            width: 100%; /* Adjust width for a better look */
+        }
+
+            .search-bar input {
+                width: 100%;
+                padding: 5px;
+            }
+
+            .search-bar button {
+                margin-left: 5px;
+            }
+
+        .right-icons {
+            display: flex;
+            align-items: center;
+        }
+
+            .right-icons .icon {
+                margin-left: 15px;
+                color: white; /* Keep icon color white for visibility */
+                font-size: 1.4rem;
+            }
+
+        body {
+            background-color: #121212; /* Set background color to black */
+            color: white; /* Default text color for visibility */
+        }
+
+        footer {
+            background-color: #212121; /* Dark footer */
+            color: white; /* Footer text color */
+            padding: 10px 0;
+        }
+
+        /* Styles for search results */
+        #searchResults {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+            gap: 15px;
+            max-height: calc(100vh - 200px); /* Adjust height according to your layout */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding-bottom: 50px; /* Space before the footer */
+         
+        }
+
+        .search-result-item {
+            background-color: #383838; /* Slightly lighter gray for search result items */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Darker shadow for depth */
+            transition: transform 0.2s;
+            text-align: center;
+            width: 300px;
+            cursor: pointer; /* Add pointer cursor to indicate clickable */
+        }
+
+            .search-result-item:hover {
+                transform: scale(1.02);
+            }
+
+            .search-result-item img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .search-result-item p {
+                padding: 10px;
+                margin: 0;
+                font-weight: bold;
+                color: white; /* Ensure title text is white */
+            }
+
+        .additional-info {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            color: #b0b0b0; /* Light gray for additional info */
+        }
+
+        /* Styles for category buttons */
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-button {
+            padding: 10px 15px;
+            background-color: #121212; /* Set background to black */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: white; /* Text color for buttons */
+        }
+
+            .category-button:hover {
+                background-color: #121212; /* Darker gray on hover */
+            }
+
+        /* New styles for the About Us button */
+        .about-button {
+            background-color: #ff0000; /* YouTube red */
+            color: white; /* Text color */
+            padding: 10px 20px; /* Increase padding for oval shape */
+            border: none;
+            border-radius: 25px; /* Higher border-radius for oval shape */
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: inline-flex; /* Changed to inline-flex for one-line display */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+            font-weight: bold; /* Make text bold for better visibility */
+            text-decoration: none; /* Remove underline */
+        }
+
+            .about-button:hover {
+                background-color: #cc0000; /* Darker red on hover */
+            }
+
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark">
+            <div class="container-fluid">
+                <!-- Redirect YouTube Logo to Home Page -->
+                <a class="navbar-brand" asp-area="" asp-controller="Youtube" asp-action="Index">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo" />
+                    <span>YouTube</span>
+                    <sup class="trademark">MY</sup> <!-- Adjusted trademark -->
+                </a>
+
+                <!-- Search Bar and Button to Fetch YouTube Data -->
+                @if (ViewData["Title"] != "Terms of Service" && ViewData["Title"] != "About Us")
+                {
+                    <div class="search-bar-container">
+                        <div class="search-bar">
+                            <input type="text" id="searchQuery" class="form-control" placeholder="Search YouTube" />
+                            <button class="btn btn-danger" onclick="searchYouTube()">Search</button>
+                        </div>
+                    </div>
+                }
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <!-- Right-side Icons -->
+                    <div class="right-icons">
+                        <span class="icon">
+                            <i class="bi bi-bell"></i>
+                        </span>
+                        <span class="icon">
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+                    </div>
+
+                    <!-- New About Us button with consistent styling -->
+                    <a class="btn btn-danger about-button" asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Category Buttons -->
+            @if (ViewData["Title"] != "Terms of Service" && ViewData["Title"] != "About Us")
+            {
+                <div class="category-buttons">
+                    <div class="category-button" onclick="filterVideos('All')">All</div>
+                    <div class="category-button" onclick="filterVideos('Gaming')">Gaming</div>
+                    <div class="category-button" onclick="filterVideos('Music')">Music</div>
+                    <div class="category-button" onclick="filterVideos('Sports')">Sports</div>
+                    <div class="category-button" onclick="filterVideos('News')">News</div>
+                    <div class="category-button" onclick="filterVideos('Education')">Education</div>
+                    <div class="category-button" onclick="filterVideos('Entertainment')">Entertainment</div>
+                    <div class="category-button" onclick="filterVideos('Travel')">Travel</div>
+                </div>
+            }
+
+            <!-- YouTube search results will be shown here -->
+            <div id="searchResults"></div>
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - YouTubeApiProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Terms of Service</a>
+        </div>
+    </footer>
+
+    <!-- Modal for YouTube Video Playback -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="videoPlayer" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- JavaScript for handling YouTube API Search -->
+    <script>
+        async function fetchVideos(query, category) {
+            const apiKey = 'AIzaSyDlmHAD7wLL3aYqAN0y-pP3d968MWjRWaU';
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}${category !== 'All' ? `+${category}` : ''}&maxResults=8&key=${apiKey}`;
+
+            const response = await fetch(searchUrl);
+            const data = await response.json();
+
+            if (data.items.length > 0) {
+                const videoIds = data.items.map(video => video.id.videoId).join(',');
+
+                const statsUrl = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoIds}&key=${apiKey}`;
+                const statsResponse = await fetch(statsUrl);
+                const statsData = await statsResponse.json();
+
+                const videosWithStats = data.items.map(video => {
+                    const stats = statsData.items.find(stat => stat.id === video.id.videoId);
+                    return {
+                        ...video,
+                        stats: stats ? stats.statistics : {},
+                    };
+                });
+
+                displayVideos(videosWithStats);
+            } else {
+                displayVideos([]); // No results found
+            }
+        }
+
+        function displayVideos(videos) {
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+
+            if (videos.length === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+                return;
+            }
+
+            videos.forEach(video => {
+                const videoElement = document.createElement('div');
+                videoElement.classList.add('search-result-item');
+
+                const viewCount = video.stats.viewCount ? parseInt(video.stats.viewCount).toLocaleString() : 'N/A';
+
+                videoElement.innerHTML = `
+                    <img src="${video.snippet.thumbnails.high.url}" alt="${video.snippet.title}">
+                    <p>${video.snippet.title}</p>
+                    <div class="additional-info">
+                        <span>${video.snippet.channelTitle}</span> | 
+                        <span>${viewCount} views</span>
+                    </div>
+                `;
+
+                videoElement.onclick = () => {
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    videoPlayer.src = `https://www.youtube.com/embed/${video.id.videoId}`;
+                    const modal = new bootstrap.Modal(document.getElementById('videoModal'));
+                    modal.show();
+                };
+
+                resultsContainer.appendChild(videoElement);
+            });
+        }
+
+        const videoModal = document.getElementById('videoModal');
+        videoModal.addEventListener('hidden.bs.modal', function () {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = ''; // Clear the video source
+        });
+
+        function searchYouTube() {
+            const query = document.getElementById('searchQuery').value;
+            const category = 'All'; 
+            fetchVideos(query, category);
+        }
+
+        function filterVideos(category) {
+            const query = document.getElementById('searchQuery').value;
+            fetchVideos(query, category);
+        }
+    </script>
+</body>
+
+</html>

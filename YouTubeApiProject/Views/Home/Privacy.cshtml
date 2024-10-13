@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Terms of Service";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Link to Google Fonts for Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif; /* Unified font to Roboto */
+            background-color: #121212; /* Dark background */
+            color: #f1f1f1; /* Light text color */
+            line-height: 1.6;
+            margin: 0;
+            padding: 10px 0 20px; /* Reduced top padding */
+        }
+
+        h1 {
+            text-align: center;
+            color: #FF0000; /* YouTube red for the title */
+            font-weight: bold; /* Bold title */
+            border: 2px solid #FF0000; /* Outline in YouTube red */
+            padding: 10px;
+            border-radius: 8px;
+            display: inline-block; /* Make outline fit content */
+            margin: 0 auto 15px auto; /* Center and space below the title */
+            background-color: #282828; /* Slightly lighter background */
+        }
+
+        h2.welcome {
+            text-align: center;
+            color: #ffeb3b; /* Bright yellow for contrast */
+            font-weight: bold; /* Bold text */
+            border: 2px solid #FF0000; /* YouTube red border */
+            padding: 15px; /* Increased padding for emphasis */
+            border-radius: 8px;
+            display: inline-block;
+            background-color: #333; /* Slightly lighter background */
+            margin: 20px auto; /* Center and space below welcome message */
+            font-size: 2em; /* Increased font size for prominence */
+        }
+
+        h2 {
+            color: #FF0000; /* YouTube red for subheadings */
+            margin-top: 20px; /* Reduced top margin */
+            text-align: center; /* Center subheadings */
+            font-weight: bold; /* Bold subheadings */
+        }
+
+        p {
+            margin: 10px 0; /* Reduced vertical margin */
+            padding: 0 15px;
+            text-align: center; /* Center paragraphs */
+            font-weight: normal;
+            color: #e0e0e0; /* Light gray for better readability */
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #007bff; /* Highlight color for main points */
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #282828; /* Dark gray background for the container */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Dark shadow effect */
+            text-align: center; /* Center all content inside the container */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>@ViewData["Title"]</h1>
+
+        <h2>Introduction</h2>
+        <p>Thanks for using YouTube! Our platform lets you <span class="highlight">watch</span>, <span class="highlight">share</span>, and <span class="highlight">discover</span> videos and connect with others globally.</p>
+
+        <h2>Our Service</h2>
+        <p>YouTube is provided by <span class="highlight">Google LLC</span>. We offer various features, including <span class="highlight">YouTube Kids</span> and the <span class="highlight">YouTube Partner Program</span>. For help, visit our <span class="highlight">Help Center</span>.</p>
+
+        <h2>Who Can Use the Service?</h2>
+        <p>You must be at least <span class="highlight">13 years old</span> to use YouTube. If you’re under 13, you need permission from a parent or guardian.</p>
+
+        <h2>Your Use of the Service</h2>
+        <p>You can watch content for personal use but cannot copy, distribute, or modify any content without permission. You are responsible for the content you upload and must comply with our guidelines.</p>
+
+        <h2>Your Content</h2>
+        <p>You keep ownership of your content but give YouTube permission to use it for the service, including <span class="highlight">monetizing</span> it. You can remove your content anytime.</p>
+
+        <h2>Account Termination</h2>
+        <p>You can stop using the service whenever you want. YouTube can suspend or terminate your account if you break the rules or if required by law.</p>
+
+        <h2>Liability</h2>
+        <p>YouTube is not responsible for any damages resulting from your use of the service. If you violate the agreement, you agree to cover any claims against us.</p>
+
+        <h2>Changes to the Agreement</h2>
+        <p>We can change these terms and will notify you of major changes. If you don’t agree with the new terms, stop using the service.</p>
+
+        <h2>Governing Law</h2>
+        <p>These terms are governed by the laws of the relevant jurisdiction.</p>
+    </div>
+</body>
+
+</html>
